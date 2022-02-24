@@ -3,14 +3,15 @@ import App from "./App";
 
 function AddTodoComponent() {
     const [value, setValue] = useState(null);
-    const [list, setList] = useState(null);
+    const [list, setList] = useState([]);
 
 
     const onClickEvent = (e) => {
         e.preventDefault();
 
 
-        setList(list, value)
+        setList([...list, value])
+
     }
     return (
         <div>
@@ -18,7 +19,11 @@ function AddTodoComponent() {
             <input type="text" name="inputValue" onChange={e => setValue(e.target.value)}></input>
             <button onClick={onClickEvent}> Add</button>
             <ul>
-                <App todolist={list}></App>
+                {list &&
+                    list.map((val) => {
+                        return <li>{val}</li>
+                    })
+                }
             </ul>
 
 
