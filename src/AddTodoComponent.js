@@ -1,24 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function AddTodoComponent() {
-    const [value, setValue] = useState([null]);
+    const [value, setValue] = useState(null);
+    const [list, setList] = useState([]);
 
-    useEffect = () => {
-        setValue(...value, [value])
-    }
-    const handleronChange = (e) => {
-        setValue(e.target.value);
-    }
-    const onClickEvent = () => {
-        const value = { value }
+    const onClickEvent = (e) => {
+        e.preventDefault();
+
+
+        setList([...list, value])
     }
     return (
         <div>
             <h1>Add Task To-Do</h1>
-            <input type="text" name={value} onChange={handleronChange}></input>
+            <input type="text" name="inputValue" onChange={e => setValue(e.target.value)}></input>
             <button onClick={onClickEvent}> Add</button>
-            <h1>{value}</h1>
 
+            {list &&
+                list.map((val) => {
+                    return <p>{val}</p>
+                })
+
+
+            }
         </div>
     );
 }
