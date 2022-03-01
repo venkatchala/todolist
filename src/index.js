@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AddTodoComponent from './AddTodoComponent';
+import GetDetails from './GetDetails';
 
 ReactDOM.render(
   <div>
-    <AddTodoComponent />
+
+    <GetDetails />
 
   </div>,
 
