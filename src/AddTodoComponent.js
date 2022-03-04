@@ -18,7 +18,7 @@ useEffect(() =>{
     }
   
 
-})
+},[list])
 
     const onClickEvent = (e) => {
         e.preventDefault();
