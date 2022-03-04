@@ -1,0 +1,8 @@
+.InCompleteTodo{
+    color: #309630;
+    list-style-type: none;
+}
+.CompletedTodo{
+    color: #b94242;
+    text-decoration: line-through;
+}
