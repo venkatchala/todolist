@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import AddTodoComponent from './AddTodoComponent';
+import Todo from './todo';
 
 ReactDOM.render(
   <div>
 
-    <AddTodoComponent />
+    <Todo />
 
   </div>,
 
