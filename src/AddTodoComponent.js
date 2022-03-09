@@ -2,44 +2,6 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import "./AddTodoComponent.css";
 import { context } from "./todo";
 import styled from "styled-components";
-import { type } from "@testing-library/user-event/dist/type";
-
-const Container = styled.div``;
-
-const Header = styled.h1`
-  color: #25a180;
-`;
-const InputTask = styled.input`
-  width: 400px;
-  height: 40px;
-  box-sizing: border-box;
-`;
-const AddButton = styled.button`
-  height: 40px;
-  text-align: center;
-  background-color: #309630;
-  color: #ffffff;
-  border: none;
-  margin: 20px;
-`;
-const UnorderList = styled.ul``;
-const List = styled.li`
-  list-style-type: none;
-`;
-const RemoveTask = styled.button`
-  background-color: #b94242;
-  color: #ffffff;
-  border: none;
-`;
-const RemoveCompletedTask = styled.button`
-  background-color: #b94242;
-  color: #ffffff;
-  height: 40px;
-  border: none;
-  margin-left: 30px;
-`;
-
-const AssignedTask = styled.span``;
 
 function AddTodoComponent() {
   const [list, setList] = useState([]);
@@ -47,6 +9,45 @@ function AddTodoComponent() {
   const inputElement = useRef();
   const todoConfig = useContext(context);
 
+  const Container = styled.div``;
+
+  const Header = styled.h1`
+    color: #25a180;
+  `;
+  const InputTask = styled.input`
+    width: 400px;
+    height: 40px;
+    box-sizing: border-box;
+  `;
+  const AddButton = styled.button`
+    height: 40px;
+    text-align: center;
+    background-color: ${todoConfig.primaryButtonColor};
+    color: #ffffff;
+    border: none;
+    margin: 20px;
+  `;
+  const UnorderList = styled.ul``;
+  const List = styled.li`
+    list-style-type: none;
+  `;
+  const RemoveTask = styled.button`
+    background-color: #b94242;
+    color: #ffffff;
+    border: none;
+  `;
+
+  const CheckBox = styled.input``;
+
+  const AssignedTask = styled.span``;
+
+  const RemoveCompletedTask = styled.button`
+    background-color: ${todoConfig.secondaryButtonColor};
+    color: #ffffff;
+    height: 40px;
+    border: none;
+    margin-left: 30px;
+  `;
   useEffect(() => {
     if (!isLoaded) {
       setIsLoaded(true);
@@ -117,13 +118,13 @@ function AddTodoComponent() {
                 : { class: "completed-todo", status: true };
             return (
               <List key={index}>
-                <input
+                <CheckBox
                   type="checkBox"
                   id={index}
                   name={val.status}
                   onChange={(e) => onChangeCheckbox(index)}
                   checked={todoClass.status}
-                ></input>
+                ></CheckBox>
                 <AssignedTask className={todoClass.class}>
                   {val.value}
                 </AssignedTask>
