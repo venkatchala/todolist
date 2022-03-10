@@ -30,14 +30,25 @@ function AddTodoComponent() {
   const UnorderList = styled.ul``;
   const List = styled.li`
     list-style-type: none;
+    width: 400px;
+    height: 40px;
+    padding: 10px;
+    border: 1px lightgrey;
+    margin: 0.1em;
+    background-color: #bcbdc2;
   `;
   const RemoveTask = styled.button`
     background-color: #b94242;
     color: #ffffff;
     border: none;
+    width: 30px;
+    height: 30px;
   `;
 
-  const CheckBox = styled.input``;
+  const CheckBox = styled.input`
+    width: 30px;
+    height: 30px;
+  `;
 
   const AssignedTask = styled.span``;
 

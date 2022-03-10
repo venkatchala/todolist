@@ -1,38 +1,19 @@
-.todo-inputfield{
-    width: 400px;
-    height: 35px;
-    box-sizing: border-box;
+.incomplete-todo {
+  display: inline-block;
+  width: 300px;
+  height: 30px;
+  text-align: justify;
+  color: #309630;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: larger;
 }
-.add-button{
-    height: 35px;
-    text-align: center;
-    background-color: #309630;
-    color: #ffffff;
-    border: none;
-    margin: 5px;
-}
-
-
-.incomplete-todo{
-    display: inline-block;
-    width: 250px;
-    color: #309630;
-    
-}
-.completed-todo{
-    display:inline-block;
-    color: #b94242;
-    width:250px;
-    text-decoration: line-through;
-}
-.delete-button{
-    background-color: #b94242;
-    color: #ffffff;
-    border: none;
-}
-.remove-completed-button{
-    background-color: #b94242;
-    color: #ffffff;
-    height: 35px;
-    border: none;
+.completed-todo {
+  display: inline-block;
+  color: #b94242;
+  width: 300px;
+  text-align: justify;
+  height: 30px;
+  text-decoration: line-through;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: larger;
 }
