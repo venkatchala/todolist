@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import "./AddTodoComponent.css";
 import { context } from "./todo";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-function AddTodoComponent() {
-  const [list, setList] = useState([]);
+function AddTodoComponent(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const inputElement = useRef();
   const todoConfig = useContext(context);
+  const navigate = useNavigate();
 
   const Container = styled.div``;
 
@@ -63,17 +65,19 @@ function AddTodoComponent() {
     if (!isLoaded) {
       setIsLoaded(true);
       if (localStorage.getItem("TodoList") != null) {
-        setList(JSON.parse(localStorage.getItem("TodoList")));
+        props.handleLoad();
       }
     } else {
-      localStorage.setItem("TodoList", JSON.stringify(list));
+      localStorage.setItem("TodoList", JSON.stringify(props.todo));
     }
-  }, [list]);
+  }, [props.todo]);
 
   const onClickEvent = (e) => {
-    let x = list.map((name) => name.value).includes(inputElement.current.value);
+    let x = props.todo
+      .map((name) => name.value)
+      .includes(inputElement.current.value);
     if (x === false) {
-      setList([...list, { value: inputElement.current.value, status: 0 }]);
+      props.handleAddButton({ value: inputElement.current.value, status: 0 });
     } else {
       alert("The task you entered is Already assigned");
     }
@@ -87,30 +91,23 @@ function AddTodoComponent() {
   };
 
   const onChangeCheckbox = (inputId) => {
-    const updatedList = list.map((val, index) => {
-      if (index === inputId) {
-        val.status === 0 ? (val.status = 1) : (val.status = 0);
-      }
-      return val;
-    });
-    setList(updatedList);
+    props.handleStatusUpdate(inputId);
   };
   const onClickDelete = (inputId) => {
-    const updatedList = list.filter((val, index) => {
-      if (index === inputId) {
-        localStorage.removeItem("TodoList");
-        return false;
-      }
-      return val;
-    });
-    setList(updatedList);
+    props.handleDeleteTodo(inputId);
   };
   const onRemoveCompletedTask = (e) => {
-    const updatedNewList = list.filter((val) => val.status === 0);
-    setList(updatedNewList);
+    props.handleRemoveCompletedTasks();
   };
   return (
     <Container>
+      <button
+        onClick={() => {
+          navigate("/settings");
+        }}
+      >
+        Settings
+      </button>
       <Header>{todoConfig.title}</Header>
       <InputTask
         type="text"
@@ -121,8 +118,8 @@ function AddTodoComponent() {
       ></InputTask>
       <AddButton onClick={onClickEvent}> {todoConfig.addTodo}</AddButton>
       <UnorderList>
-        {list &&
-          list.map((val, index) => {
+        {props.todo &&
+          props.todo.map((val, index) => {
             const todoClass =
               val.status === 0
                 ? { class: "incomplete-todo", status: false }
@@ -153,4 +150,23 @@ function AddTodoComponent() {
   );
 }
 
-export default AddTodoComponent;
+const mapStateToPros = (state) => {
+  return {
+    todo: state,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleLoad: () => dispatch({ type: "loading" }),
+    handleAddButton: (jsonObject) =>
+      dispatch({ type: "addTodo", payload: jsonObject }),
+    handleStatusUpdate: (index) =>
+      dispatch({ type: "updateStatus", payload: index }),
+    handleDeleteTodo: (index) =>
+      dispatch({ type: "deleteTodo", payload: index }),
+    handleRemoveCompletedTasks: () => dispatch({ type: "removeCompleteTasks" }),
+  };
+};
+const TodoHome = connect(mapStateToPros, mapDispatchToProps)(AddTodoComponent);
+
+export default TodoHome;
